@@ -12,3 +12,10 @@ lsb_release -a; uptime; free -h; df -h; ip -br a; sudo ss -tulpn
 - Sudo rule: /etc/sudoers.d/90-deploy (validated with `vsudo -c`)
 - ~/.ssh = 700, authorized_key = 600
 - Access: `ssh deploy@10.81.21.101` (alias `p01` in ~/.ssh/config)
+
+## SSH hardening (Issue #2)
+- Source of truth: configs/sshd/01-hardening.conf -> /etc/ssh/sshd_config.d/
+- Named 01- because sshd uses the FIRST value found (cloud image ships 60-*)
+- verify: `sudo sshd -t` (syntax), `sudo sshd -T | grep ...` (effective values)
+- Always keep a session open while restarting ssh
+- Tests: key login OK, password refused, root refused
