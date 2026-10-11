@@ -26,3 +26,10 @@ lsb_release -a; uptime; free -h; df -h; ip -br a; sudo ss -tulpn
 - Verified: test port 8080 blocked -> allowed -> removed
 - WARNING: Docker-published ports bypass UFW -> bind containers to 127.0.0.1
 - Loukout prevention: allow SSH before `ufw enable`, keep a session open
+
+## fail2ban (Issue #3)
+- Config: configs/fail2ban/sshd/local -> /etc/fail2ban/jail.d/
+- 5 failures / 10 min -> 1h ban, increasing for repeat offenders
+- backend=systemd (Ubuntu 24.04 logs sshd to journald)
+- Tested from a separate VM: banned after 5 attempts (evidence: fail2ban-client status sshd)
+- Unban: 'sudo fail2ban-client set sshd unbanip <IP>'

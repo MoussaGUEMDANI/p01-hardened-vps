@@ -1,0 +1,15 @@
+## P01 - deployed to /etc/fail2ban/jail.d/sshd.local
+
+[DEFAULT]
+bantime = 1h
+findtime = 10m
+maxretry = 5
+# Repeat offenders get longer bans (1h, 2h, 3h)
+bantime.increment = true
+# Ubuntu 24.04: sshd logs go to the systemd journal
+backend = systemd
+ignoreip = 127.0.0.1/8 ::1
+
+[sshd]
+enabled = true
+port = ssh
