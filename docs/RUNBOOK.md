@@ -11,7 +11,7 @@ lsb_release -a; uptime; free -h; df -h; ip -br a; sudo ss -tulpn
 - User `deploy`, member of `sudo`, password disabled (key-only)
 - Sudo rule: /etc/sudoers.d/90-deploy (validated with `vsudo -c`)
 - ~/.ssh = 700, authorized_key = 600
-- Access: `ssh deploy@10.81.21.101` (alias `p01` in ~/.ssh/config)
+- Access: `ssh deploy@10.81.12.101` (alias `p01` in ~/.ssh/config)
 
 ## SSH hardening (Issue #2)
 - Source of truth: configs/sshd/01-hardening.conf -> /etc/ssh/sshd_config.d/
@@ -19,3 +19,10 @@ lsb_release -a; uptime; free -h; df -h; ip -br a; sudo ss -tulpn
 - verify: `sudo sshd -t` (syntax), `sudo sshd -T | grep ...` (effective values)
 - Always keep a session open while restarting ssh
 - Tests: key login OK, password refused, root refused
+
+## Firewall - UFW (Issue #3)
+- Policy: deny incoming / allow outgoing
+- Rules: `ufw limit OpenSSH` (22/tcp, blocked ≥6 conn/30s per IP)
+- Verified: test port 8080 blocked -> allowed -> removed
+- WARNING: Docker-published ports bypass UFW -> bind containers to 127.0.0.1
+- Loukout prevention: allow SSH before `ufw enable`, keep a session open
