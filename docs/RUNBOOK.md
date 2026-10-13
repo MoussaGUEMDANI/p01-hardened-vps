@@ -33,9 +33,3 @@ lsb_release -a; uptime; free -h; df -h; ip -br a; sudo ss -tulpn
 - backend=systemd (Ubuntu 24.04 logs sshd to journald)
 - Tested from a separate VM: banned after 5 attempts (evidence: fail2ban-client status sshd)
 - Unban: 'sudo fail2ban-client set sshd unbanip <IP>'
-
-## Automatic security updates
-- Configs: configs/apt/20auto-upgrades, 52unattended-local -> /etc/apt/apt.conf.d/
-- Aoto-reboot only if required, at 03:30 server time (UTC) - agree window with client
-- Verify: `sudo unattended-upgrade --dry-run --debug`, `apt-config dump | grep Reboot`
-- Logs: /var/log/unattended-upgrades/
