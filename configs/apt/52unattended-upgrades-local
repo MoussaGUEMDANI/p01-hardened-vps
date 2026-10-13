@@ -3,5 +3,3 @@ Unattended-Upgrade::Remove-Unused-Dependencies "true";
 Unattended-Upgrade::remove-Unused-Kernel-Packages "true";
 Unattended-Upgrade::Automatic-Reboot "true";
 Unattended-Upgrade::Automatic-Reboot-Time "03:30"
-
-cat >> docs/RUNBOOK.md << 'EOF'
