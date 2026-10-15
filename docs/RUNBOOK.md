@@ -38,4 +38,5 @@ lsb_release -a; uptime; free -h; df -h; ip -br a; sudo ss -tulpn
 - Configs: configs/apt/20auto-upgrades, 52unattended-local -> /etc/apt/apt.conf.d/
 - Aoto-reboot only if required, at 03:30 server time (UTC) - agree window with client
 - Verify: `sudo unattended-upgrade --dry-run --debug`, `apt-config dump | grep Reboot`
-- Logs: /var/log/unattended-upgrades/
+- Logs: /var/log/unattended-upgrades/- Workstation clock was ~5 min fast (no NTP service) → tar "time stamp in the future" warnings.
+  Check: `timedatectl` → "System clock synchronized: yes". Servers need outbound UDP 123 for NTP.
